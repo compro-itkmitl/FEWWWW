@@ -57,7 +57,7 @@ int main(){
 
 
             num++;
-            sprintf(path, "user/user%d.jpg", num);
+            sprintf(path, "user/user1.%d.jpg", num);
             imwrite(path, cropimage);
 
             waitKey(1);
