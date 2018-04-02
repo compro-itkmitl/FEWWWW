@@ -1,72 +1,104 @@
 #include "opencv2/core.hpp"
 #include "opencv2/face.hpp"
 #include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-using namespace std;
 using namespace cv;
 using namespace cv::face;
+using namespace std;
 
 int main(){
-	cout << "face recognizing is begin" << endl;
-
-	//load trainer data
-	Ptr<LBPHFaceRecognizer> model_face = createLBPHFaceRecognizer();
-	model_face -> load("trainingdata.yml");
-
-	//load face algolithm haar cascading
-	string face_classifier = "haarcascade_frontalface_alt.xml";
+    cout << "start face rec PLEASE WAIT..." << endl;
+	
+	//define model face recognizer
+    Ptr<LBPHFaceRecognizer> model = LBPHFaceRecognizer::create();
+	//read model
+	model -> read("trainingdata.yml");
+	
+	//cascade face
 	CascadeClassifier face_cascade;
-	face_cascade.load(face_classifier);
+	string classifier = "haarcascade_frontalface_alt.xml";
+	face_cascade.load(classifier);
 
-	//record vdo camera 1 (0 is camera 1 and 1 is camera 2)
+	string window = "cap_faceDetection";
+
+	//capture vdo camera 1
 	VideoCapture vdo(0);
-	//count frame
-	int count = 0;
+	namedWindow(window, 1);
+
 	while(1){
-		count++;
-		//create frame type Mat
-		Mat frame, grayscale, og;
-		
-		//create vector name faces type Rectangular
-		vector<Rect> face;
+		Mat frame, gray_scale;
+		vector<Rect> faces;
 
-		//add vdo frame by frame to var. frame
-		vdo >> frame
+		vdo >> frame;
 
-		//check frame not emthy
-		if(!frame.emthy()){
-			//convert color image bgr to grayscale and save in var.grayscale
-			cvtColor(frame, grayscale, COLOR_BGR2GRAY);
-			equalizeHist(grayscale, grayscale);
+		string name_user = "";
+
+		//check vdo is emthy
+		if(!frame.empty()){
+			cvtColor(frame, gray_scale, COLOR_BGR2GRAY);
+			equalizeHist(gray_scale, gray_scale);
 
 			//detect
-			face_cascade.detectMultiScale(grayscale, faces, 1.1, 3, 0, Size(30, 30));
+			face_cascade.detectMultiScale(gray_scale, faces, 1.1, 3, 0|CASCADE_SCALE_IMAGE, Size(60, 60));
 
-			//username
-			string user_name;
+			int label = 0;
+			double confidence = 0;
 			for(int i=0;i<faces.size();i++){
-				 //point begin and end of faces
+				//point begin and end of faces
+				Rect face_num = faces[i];
             	Point f_begin(faces[i].x, faces[i].y);
             	Point f_end(faces[i].x + faces[i].width , faces[i].y + faces[i].height);
 
             	Rect crop = Rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-            	Mat cropimage = gray(crop);
+           		Mat cropimage = gray_scale(crop);
+				imshow("f", cropimage);
 
-            	waitKey(1);
+				rectangle(frame, face_num,CV_RGB(0, 255, 0), 2);
 
-            	//draw rectangular
-            	rectangle(frame, f_begin, f_end, Scalar(0, 255, 0), 2);
+				int predict_label = -1;
+				double confidence = 0.0;
+				model -> predict(cropimage,predict_label, confidence);
+
+				cout << confidence << endl;
+				if(predict_label == 2){
+					if(confidence <= 50){
+						name_user = "khing";
+					}
+					else{
+						name_user = "unknown";
+					}
+				}
+				else if(predict_label == 1){
+					if(confidence >= 50){
+						name_user = "dd";
+					}
+					else{
+						name_user = "unknown";
+					}
+				}
+				else{
+					if(confidence >= 50){
+						name_user = "cartoon";
+					}
+					else{
+						name_user = "unknown";
+					}
+				}
+				putText(frame, name_user, Point(faces[i].x, faces[i].y+faces[i].height), FONT_HERSHEY_COMPLEX_SMALL, 3.0, CV_RGB(0, 0, 0), 3.0);
+				
 			}
 			
-		}
-		char c=(char)waitKey(30);
-		if (c == 27) break;
-	}
+			imshow("frame", frame);
+			waitKey(1);
+			
 
-	destroyAllWindows();
+		}
+
+	}
 	return 0;
 }

@@ -40,7 +40,6 @@ int main(){
         //convert frame to gray scale
         Mat gray;
         cvtColor(frame, gray, COLOR_BGR2GRAY);
-        equalizeHist(gray, gray);
 
         //detection face
         face_cascade.detectMultiScale(gray, faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30));
@@ -57,7 +56,7 @@ int main(){
 
 
             num++;
-            sprintf(path, "user/user1.%d.jpg", num);
+            sprintf(path, "user/user2.%d.jpg", num);
             imwrite(path, cropimage);
 
             waitKey(1);

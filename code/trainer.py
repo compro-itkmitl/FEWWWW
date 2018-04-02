@@ -12,6 +12,7 @@ path = 'user'
 '''define function get img'''
 def getimg(path):
 	'''get image path and append to list imgpath'''
+	
 	imgpath = [os.path.join(path, f) for f in os.listdir(path)]
 
 	'''create list of faces and Id'''
@@ -20,7 +21,9 @@ def getimg(path):
 	'''loop for in img path'''
 	for p in imgpath:
 		'''add img to face_img and connvert to grayscale'''
-		face_img = Image.open(p).convert('L')
+		if(p == "user/.DS_Store"):
+			continue
+		face_img = Image.open(p)
 		
 		face_np = np.array(face_img, 'uint8')
 		Ids = int(os.path.split(p)[-1].split('.')[0][-1])
