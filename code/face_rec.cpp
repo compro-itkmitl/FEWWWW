@@ -2,6 +2,7 @@
 #include "opencv2/face.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
+//This is opencv Libary path
 
 #include <iostream>
 #include <fstream>
@@ -10,6 +11,7 @@
 using namespace cv;
 using namespace cv::face;
 using namespace std;
+//use namespace because not write name libary
 
 int main(){
     cout << "start face rec PLEASE WAIT..." << endl;
@@ -31,12 +33,14 @@ int main(){
 	namedWindow(window, 1);
 
 	while(1){
+		//define val type Mat
 		Mat frame, gray_scale;
+
+		//define type vector rectangular
 		vector<Rect> faces;
 
 		vdo >> frame;
 
-		string name_user = "";
 
 		//check vdo is emthy
 		if(!frame.empty()){
@@ -46,8 +50,11 @@ int main(){
 			//detect
 			face_cascade.detectMultiScale(gray_scale, faces, 1.1, 3, 0|CASCADE_SCALE_IMAGE, Size(60, 60));
 
+			//define label of user and confidence and name
 			int label = 0;
 			double confidence = 0;
+			string name_user = "";
+
 			for(int i=0;i<faces.size();i++){
 				//point begin and end of faces
 				Rect face_num = faces[i];
@@ -65,25 +72,25 @@ int main(){
 				model -> predict(cropimage,predict_label, confidence);
 
 				cout << confidence << endl;
-				if(predict_label == 2){
-					if(confidence <= 50){
+				if(predict_label == 1){
+					if(confidence <= 45){
 						name_user = "khing";
 					}
 					else{
 						name_user = "unknown";
 					}
 				}
-				else if(predict_label == 1){
-					if(confidence >= 50){
-						name_user = "dd";
+				else if(predict_label == 2){
+					if(confidence <= 50){
+						name_user = "platty";
 					}
 					else{
 						name_user = "unknown";
 					}
 				}
 				else{
-					if(confidence >= 50){
-						name_user = "cartoon";
+					if(confidence <= 50){
+						name_user = "Ped";
 					}
 					else{
 						name_user = "unknown";
@@ -93,7 +100,7 @@ int main(){
 				
 			}
 			
-			imshow("frame", frame);
+			imshow(window, frame);
 			waitKey(1);
 			
 
