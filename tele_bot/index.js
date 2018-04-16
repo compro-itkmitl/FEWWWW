@@ -2,6 +2,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const token = '572017543:AAFy1s2YoJf9a6kcUryIaoCKN9jUn9ftV_k';
 const bot = new TelegramBot(token, {polling: true});
 var NodeWebcam = require( 'node-webcam' );
+// var another = require('./notify.js'); //not sure if it work the way
 //Default options 
 var opts = {
     width: 1920,
@@ -42,6 +43,7 @@ bot.onText(/\/keyboard/, (msg) => {
     });
 
 bot.onText(/\/sendpic/, (msg) => {
+    console.log('--receiving command-');
     var Webcam = NodeWebcam.create( opts );
     Webcam.capture( "test_picture", function( err, data ) {} );
     NodeWebcam.capture( "test_picture", opts, function( err, data ) {
@@ -54,6 +56,7 @@ bot.onText(/\/sendpic/, (msg) => {
     };
     NodeWebcam.capture( "test_picture", opts, function( err, data ) {
         var image = "<img src='" + data + "'>";
-        bot.sendPhoto(msg.chat.id,"test_picture.jpg",{caption : "Anonymous\nUnknow person"} );
+        // notify.js
+        console.log('--sending completed--');
     });
 });
