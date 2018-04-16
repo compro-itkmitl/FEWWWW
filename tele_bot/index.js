@@ -1,8 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 const token = '572017543:AAFy1s2YoJf9a6kcUryIaoCKN9jUn9ftV_k';
 const bot = new TelegramBot(token, {polling: true});
-var express = require('express')
-var app = express()
 var NodeWebcam = require( 'node-webcam' );
 //Default options 
 var opts = {
