@@ -1,6 +1,4 @@
-const TelegramBot = require('node-telegram-bot-api');
-const token = '572017543:AAFy1s2YoJf9a6kcUryIaoCKN9jUn9ftV_k';
-const bot = new TelegramBot(token, {polling: true});
+var NodeWebcam = require( 'node-webcam' );
 
 var Webcam = NodeWebcam.create( opts );
 Webcam.capture( "test_picture", function( err, data ) {} );
@@ -14,6 +12,10 @@ var opts = {
 };
 NodeWebcam.capture( "test_picture", opts, function( err, data ) {
     var image = "<img src='" + data + "'>";
-    // notify.js
-    console.log('--sending completed--');
+    let exec = require('child_process').exec;
+    setTimeout(function() {
+        exec('node notify.js', (error, stdout, stderr) => {
+        })
+      }, 5000);
+    console.log('--capture completed--');
 });
