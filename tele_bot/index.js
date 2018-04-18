@@ -43,7 +43,7 @@ bot.onText(/\/keyboard/, (msg) => {
     });
 
 bot.onText(/\/sendpic/, (msg) => {
-    console.log('--receiving command-');
+    console.log('--received command--');
     var Webcam = NodeWebcam.create( opts );
     Webcam.capture( "test_picture", function( err, data ) {} );
     NodeWebcam.capture( "test_picture", opts, function( err, data ) {
@@ -57,8 +57,14 @@ bot.onText(/\/sendpic/, (msg) => {
     NodeWebcam.capture( "test_picture", opts, function( err, data ) {
         var image = "<img src='" + data + "'>";
         setTimeout(function() {
-            bot.sendPhoto(usr,"test_picture.jpg",{caption : "Anonymous\nUnknow person"} );
-          }, 10000);
-        console.log('--sending completed--');
+            bot.sendPhoto(msg.chat.id,"test_picture.jpg",{caption : "Anonymous\nUnknow person"} )
+            .then(() => {
+                console.log('--sending completed--');
+                console.log('--sended to '+msg.chat.username+'--');
+            })
+            .catch(() => {
+                console.log('-- sending err --');
+            });
+          }, 5000);
     });
 });

@@ -16,6 +16,6 @@ NodeWebcam.capture( "test_picture", opts, function( err, data ) {
     setTimeout(function() {
         exec('node notify.js', (error, stdout, stderr) => {
         })
-      }, 5000);
+      });
     console.log('--capture completed--');
 });
