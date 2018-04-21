@@ -6,7 +6,7 @@ var opts = {
     quality: 100,
     delay: 0, 
     saveShots: true,
-    output: "jpeg",
+    output: "png",
     device: false,
     callbackReturn: "location",
     verbose: false

@@ -5,66 +5,35 @@ var NodeWebcam = require( 'node-webcam' );
 
 //Default options 
 var opts = {
-    width: 1920,
-    height: 1080,
+    width: 1280,
+    height: 720,
     quality: 100,
     delay: 0, 
     saveShots: true,
-    output: "jpeg",
+    output: "png",
     device: false,
     callbackReturn: "location",
     verbose: false
 };
 
 const usr = 454788039;
-bot.sendMessage(usr, "start");
+bot.sendMessage(usr, "Welcome To Feww Alert (I have awaken)");
 
-bot.on('message', (msg) => {
-    const check = "check";
-    if (msg.text.toString().toLowerCase().includes(check)) {
-        bot.sendMessage(msg.chat.id, "check");
-    } 
-    const robot = "robot";
-    if (msg.text.toString().toLowerCase().includes(robot)) {
-        bot.sendMessage(msg.chat.id, "http://www.google.com");
-    }
-    const swar = "line";
-    if (msg.text.includes(swar)) {
-        bot.kickChatMember(msg.chat.id,  msg.from.id);
-    }
-});
-
-bot.onText(/\/keyboard/, (msg) => {
-    bot.sendMessage(msg.chat.id, "Select Option", {
+bot.onText(/\/start/, (msg) => {
+    exec('./a.out', (error, stdout, stderr) => {})
+    .then(() => {
+        console.log('--Initiate Succeed--');
+        bot.sendMessage(msg.chat.id, "Select Option", {
         "reply_markup": {
-            "keyboard": [["/sendpic", "/openlive"]]
+            "keyboard": [["/sendpic"]]
             }
         });
+    })
+    .catch(() => {
+        console.log('-- Initiate Fail --');
     });
+});
 
 bot.onText(/\/sendpic/, (msg) => {
-    console.log('--received command--');
-    var Webcam = NodeWebcam.create( opts );
-    Webcam.capture( "test_picture", function( err, data ) {} );
-    NodeWebcam.capture( "test_picture", opts, function( err, data ) {
-    });
-    Webcam.list( function( list ) {
-        var anotherCam = NodeWebcam.create( { device: list[ 0 ] } );
-    });
-    var opts = {
-        callbackReturn: "base64"
-    };
-    NodeWebcam.capture( "test_picture", opts, function( err, data ) {
-        var image = "<img src='" + data + "'>";
-        setTimeout(function() {
-            bot.sendPhoto(msg.chat.id,"test_picture.jpg",{caption : "Anonymous\nUnknow person"} )
-            .then(() => {
-                console.log('--sending completed--');
-                console.log('--sended to '+msg.chat.username+'--');
-            })
-            .catch(() => {
-                console.log('-- sending err --');
-            });
-          }, 5000);
-    });
+    exec('node alert.js', (error, stdout, stderr) => {})
 });
