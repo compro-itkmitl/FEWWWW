@@ -1,25 +1,27 @@
 <img src="img/banner.png">
 
 # What is FEWWW
-Fewww คือ ระบบแจ้งเตือนบุคคลมาเยือนบ้าน โดยใช้ระบบ Face-Detection เข้ามาช่วยเหลือในการตรวจจับหน้าบุคคล
+Fewww คือ ระบบแจ้งเตือน โดยใช้ระบบ Face-Detection เข้ามาช่วยเหลือในการตรวจจับหน้าบุคคล และการเอา Chat Service มาเป็นตัแจ้งเตือนและควบคุมการทำงาน (Bot) โดยจุดประสงค์คือการแจ้งเตือนเมื่อเครื่องมือ detect ใบน้าของบุคคลให้เจ้าของบ้านรับรู้และตอบสนองได้ท่วงทันเหตุการณ์
 
 # Component
 สิ่งที่เราใช้มาประกอบการทำ Project Fewww ก็มีดังนี้ <br>
-* Rasberry Pi 3 Model B
-* Logitech Webcam
+* [Rasberry Pi 3 Model B]()
+* Computer Webcam (ทางเราใช้ [Logitech HD WEBCAM C310](https://www.logitech.com/en-us/product/hd-webcam-c310?crid=34))
 
-ส่วนทางด้วย Software
+ส่วนทางด้าน ภาษา
 * C++ (OpenCV)
 * Javascript (node-telegram-bot-api)
 * Python
 
 # How did it work?
-Fewww จะทำงานอยู่บน Raspberry-Pi โดยจะคอยตรวจจับใบหน้าที่มาอยู่ในกล้อง โดย Feww จะทำการ Matching กับใบหน้าของบุคคลในบ้าน โดยถ้า ก็ทำการ Notify กับผู้ใช้ ผ่านทาง Telegram bot ที่ชื่อว่า Fewww Alert 
+Fewww จะทำงานอยู่บน Raspberry-Pi โดย System ของเรานั้นจะแบ่งเป็น 2 ส่วนหลังนั้นก็คือ ส่วนของการ `Detection` และ `Notifiation` ซึงส่วนของการ `Detection` นั้นจะคอย ตรวจจับใบหน้าและจะเป็นส่วนที่จะ Trigger ให้ `Notifiation` ทำงานคือ การ Notify ผู้ใช้
 
-## openCV C++
+## OpenCV C++
 <img src="img/banner cv.png" >
 
 ### ตัวอย่าง Code ของ Face Detection
+
+ในส่วนของ Detection 
 ```c++
         for(size_t i=0;i<faces.size();i++){
 
@@ -49,7 +51,7 @@ Fewww จะทำงานอยู่บน Raspberry-Pi โดยจะคอ
 ## Telegram bot api
 <img src="img/banner tele.png">
 
-ในส่วนของการ Notify User นั้นอย่างที่เราได้กล่าวไว้ในข้างต้นว่าเราใช้ตัว Telegram Bot เป็นตัวส่งให้ User รับรู้ โดยภาษาที่ใช้สั่งตัว Telegram Bot ที่เราใช้คือ JavaScript (node.js) และใช้ [Nodejs Telegram bot api](https://github.com/yagop/telegram-bot) โดยเราจะแบ่งตัว Program เป็น 2 ส่วนคือ ส่วนที่ Run ตลอดเพื่อรอรับคำส่งจาก User แและอีกส่วนนึงก็เป็นตัที่รอการโดย Trigger จาก C++ เมื่อมีการ detect เกิดขึ้น
+ในส่วนของการ Notify User นั้นอย่างที่เราได้กล่าวไว้ในข้างต้นว่าเราใช้ตัว Telegram Bot เป็นตัวส่งให้ User รับรู้ โดยภาษาที่ใช้สั่งตัว Telegram Bot ที่เราใช้คือ JavaScript (node.js) และใช้ [node-telegram-bot-api](https://github.com/yagop/node-telegram-bot-api) โดยเราจะแบ่งตัว Program เป็น 2 ส่วนคือ ส่วนที่ Run ตลอดเพื่อรอรับคำส่งจาก User แและอีกส่วนนึงก็เป็นตัที่รอการโดย Trigger จาก C++ เมื่อมีการ detect เกิดขึ้น
 
 ### ตัวอย่าง Code ของการส่งรูปไปยัง User
 ```js
