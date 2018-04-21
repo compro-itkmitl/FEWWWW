@@ -9,7 +9,7 @@ var opts = {
     quality: 100,
     delay: 0, 
     saveShots: true,
-    output: "png",
+    output: "jpeg",
     device: false,
     callbackReturn: "location",
     verbose: false
@@ -33,6 +33,5 @@ bot.onText(/\/pic/, (msg) => {
             exec('node notify.js', (error, stdout, stderr) => {
             })
         }, 5000);
-        console.log('--capture completed--');
     });
 });
