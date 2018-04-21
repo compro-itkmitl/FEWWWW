@@ -1,3 +1,5 @@
+<img src="img/banner.png">
+
 # What is FEWWW
 Fewww คือ ระบบแจ้งเตือนบุคคลมาเยือนบ้าน โดยใช้ระบบ Face-Detection เข้ามาช่วยเหลือในการตรวจจับหน้าบุคคล
 
@@ -14,14 +16,36 @@ Fewww คือ ระบบแจ้งเตือนบุคคลมาเ�
 # How did it work?
 Fewww จะทำงานอยู่บน Raspberry-Pi โดยจะคอยตรวจจับใบหน้าที่มาอยู่ในกล้อง โดย Feww จะทำการ Matching กับใบหน้าของบุคคลในบ้าน โดยถ้า ก็ทำการ Notify กับผู้ใช้ ผ่านทาง Telegram bot ที่ชื่อว่า Fewww Alert 
 
-### openCV C++
+## openCV C++
 
 
-
-### Telegram bot api
-
+```c++
 
 
+```
+
+
+## Telegram bot api
+<img src="img/banner tele.png" >
+
+```js
+const TelegramBot = require('node-telegram-bot-api');
+const token = '<botToken>';
+const bot = new TelegramBot(token, {polling: true});
+
+setTimeout(function() {
+    bot.sendPhoto(msg.chat.id,"test_picture.jpg")
+    .then(() => {
+        console.log('--sending completed--');
+        console.log('--sended to '+msg.chat.username+'--');
+    })
+    .catch(() => {
+        console.log('-- sending err --');
+    });
+    }, 5000);
+
+```
+> 
 # Interface
 
 
