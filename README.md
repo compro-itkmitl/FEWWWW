@@ -73,6 +73,15 @@ setTimeout(function() {
 ```
 
 # Interface
+ในส่วนของการใช้งานนั้น การทำงาน Few จะทำงานโดยผ่านการควบคุมของ `Feww Alert bot` ซึ่งคำส่งการทำงานขึ้นให้เรียบร้อยบน Keyboard
+
+
+|command| action|
+| :-: | :-: |
+|/start|เริ่มเปิดระบบ Detection|
+|/sendpic|การส่งรูป|
+
+### รูปตัวอย่างของ Interface
 
 
 

@@ -20,14 +20,14 @@ const usr = 454788039;
 bot.sendMessage(usr, "Welcome To Feww Alert (I have awaken)");
 
 bot.onText(/\/start/, (msg) => {
-    // bot.sendMessage(msg.chat.id, "Select Option", {
-    //     "reply_markup": {
-    //         "keyboard": [["/sendpic", "/openlive"]]
-    //         }
-    //     });
     exec('./a.out', (error, stdout, stderr) => {})
     .then(() => {
         console.log('--Initiate Succeed--');
+        bot.sendMessage(msg.chat.id, "Select Option", {
+        "reply_markup": {
+            "keyboard": [["/sendpic"]]
+            }
+        });
     })
     .catch(() => {
         console.log('-- Initiate Fail --');
@@ -35,24 +35,5 @@ bot.onText(/\/start/, (msg) => {
 });
 
 bot.onText(/\/sendpic/, (msg) => {
-    console.log('--received command--');
-    var Webcam = NodeWebcam.create( opts );
-    Webcam.capture( "test_picture", function( err, data ) {} );
-    NodeWebcam.capture( "test_picture", opts, function( err, data ) {
-    });
-    Webcam.list( function( list ) {
-        var anotherCam = NodeWebcam.create( { device: list[ 0 ] } );
-    });
-    var opts = {
-        callbackReturn: "base64"
-    };
-    NodeWebcam.capture( "test_picture", opts, function( err, data ) {
-        var image = "<img src='" + data + "'>";
-    });
-// here to fix
-    }).then(() => {
-        bot.sendPhoto(usr,"test_picture.png")
-    }).catch(() => {
-        console.log('-- sending err --');
-    });
-
+    exec('node alert.js', (error, stdout, stderr) => {})
+});
