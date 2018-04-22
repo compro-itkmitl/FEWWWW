@@ -16,6 +16,7 @@ Fewww คือ ระบบแจ้งเตือน โดยใช้ระ
 ## 🔗 Requested Component *installation is needed*
 * [OpenCV2](https://opencv.org/)
 * OpenCV Extra Module
+* [Node.js](https://nodejs.org/en/) (npm)
 * [Node Telegram bot Api](https://github.com/yagop/node-telegram-bot-api) (with in code Folder)
 
 
