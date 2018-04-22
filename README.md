@@ -14,20 +14,24 @@ Fewww คือ ระบบแจ้งเตือน โดยใช้ระ
 * Python  👥
 
 ## 🔗 Requested Module
-* [OpenCV]()
-* [Node.js (npm)]()
-* [Node-Telegram-bot-api]()
+* [OpenCV2](https://opencv.org/)
+* [OpenCV ExtraModule]()
+* [Node Telegram bot Api](https://github.com/yagop/node-telegram-bot-api)
+* [fscam]()
+* [node-webcam]()
+
 
 
 # 🗜️How did it work?
 Fewww จะทำงานอยู่บน Raspberry-Pi โดย System ของเรานั้นจะแบ่งเป็น 2 ส่วนหลังนั้นก็คือ ส่วนของการ `Recognition` และ `Notifiation` ซึงส่วนของการ `Recognition` นั้นจะคอย ตรวจจับใบหน้าและจะเป็นส่วนที่จะ Trigger ให้ `Notifiation` ทำงานคือ การ Notify ผู้ใช้
 
-## 👁 OpenCV C++
+## 👁 OpenCV2 C++
 <img src="img/banner cv.png" >
+
+ในส่วนของ Recognition 
 
 ### ตัวอย่าง Code ของ Face Recognition
 
-ในส่วนของ Recognition 
 ```c++
         for(size_t i=0;i<faces.size();i++){
 
@@ -51,14 +55,65 @@ Fewww จะทำงานอยู่บน Raspberry-Pi โดย System ข�
         imshow("face", frame);
 
 ```
+### ตัวอย่าง Code การ Training Face Recognition
+```python
+'''create recognizer'''
+rec = cv2.face.LBPHFaceRecognizer_create()
+
+'''This is path go to dataset'''
+path = 'user'
+
+'''define function get img'''
+def getimg(path):
+	'''get image path and append to list imgpath'''
+	
+	imgpath = [os.path.join(path, f) for f in os.listdir(path)]
+
+	'''create list of faces and Id'''
+	faces, Id = [], []
+
+	'''loop for in img path'''
+	for p in imgpath:
+		'''add img to face_img and connvert to grayscale'''
+		if(p == "user/.DS_Store"):
+			continue
+		face_img = Image.open(p)
+		
+		face_np = np.array(face_img, 'uint8')
+		Ids = int(os.path.split(p)[-1].split('.')[0][-1])
+		faces.append(face_np)
+		
+		print(Ids)
+		
+		Id.append(Ids)
+		
+		cv2.imshow("train", face_np)
+		cv2.waitKey(10)
+	
+	return Id, faces
+
+Id, faces = getimg(path)
+
+rec.train(faces, np.array(Id))
+rec.save('trainingdata.yml')
+cv2.destroyAllWindows()
+
+```
 ### ตัวอย่าง รูปของการ Detect
 <p align="center">
     <img src="img/detection.jpg" >
 </p>
 
+## ตัวอย่างรูปการ Trainning
+<p align="center">
+    <img src="img/training pic.png" >
+</p>
+
 ## 🔔 Telegram bot api
 <img src="img/banner tele.png">
-ในส่วนของการ Notify User นั้นอย่างที่เราได้กล่าวไว้ในข้างต้นว่าเราใช้ตัว Telegram Bot เป็นตัวส่งให้ User รับรู้ โดยภาษาที่ใช้สั่งตัว Telegram Bot ที่เราใช้คือ JavaScript (node.js) และใช้ [node-telegram-bot-api](https://github.com/yagop/node-telegram-bot-api) โดยเราจะแบ่งตัว Program เป็น 2 ส่วนคือ ส่วนที่ Run ตลอดเพื่อรอรับคำส่งจาก User แและอีกส่วนนึงก็เป็นตัที่รอการโดย Trigger จาก C++ เมื่อมีการ detect เกิดขึ้น
+
+ในส่วนของการ Notify User นั้นอย่างที่เราได้กล่าวไว้ในข้างต้นว่าเราใช้ตัว Telegram Bot เป็นตัวส่งให้ User รับรู้ โดยภาษาที่ใช้สั่งตัว Telegram Bot ที่เราใช้คือ JavaScript (node.js) และใช้  [node.js telegram bot api](https://github.com/yagop/node-telegram-bot-api) 
+โดยเราจะแบ่งตัว Program เป็น 2 ส่วนคือ ส่วนที่ Run ตลอดเพื่อรอรับคำส่งจาก User แและอีกส่วนนึงก็เป็นตัที่รอการโดย Trigger จาก C++ เมื่อมีการ detect เกิดขึ้น
 
 ### ตัวอย่าง Code ของการส่งรูปไปยัง User
 ```js
