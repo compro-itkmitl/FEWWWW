@@ -22,8 +22,8 @@ bot.onText(/\/start/, (msg) => {
 
 bot.onText(/\/pic/, (msg) => {
     var Webcam = NodeWebcam.create( opts );
-    Webcam.capture( "test_picture", function( err, data ) {} );
-    NodeWebcam.capture( "test_picture", opts, function( err, data ) {
+    Webcam.capture( "test_picture2", function( err, data ) {} );
+    NodeWebcam.capture( "test_picture2", opts, function( err, data ) {
     });
     Webcam.list( function( list ) {
         var anotherCam = NodeWebcam.create( { device: list[ 0 ] } );
@@ -31,7 +31,7 @@ bot.onText(/\/pic/, (msg) => {
     var opts = {
         callbackReturn: "base64"
     };
-    NodeWebcam.capture( "test_picture", opts, function( err, data ) {
+    NodeWebcam.capture( "test_picture2", opts, function( err, data ) {
         var image = "<img src='" + data + "'>";
         let exec = require('child_process').exec;
         setTimeout(function() {

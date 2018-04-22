@@ -6,7 +6,7 @@ const bot = new TelegramBot(token, {polling: true});
 // notify
 console.log('--notifying--');
 const usr = 454788039;
-bot.sendPhoto(usr,"test_picture.jpg",{caption : "Khing\n y"} )
+bot.sendPhoto(usr,"test_picture.jpg",{caption : "FEWWW have sense a Face"} )
     .then(() => {
         console.log('--sending completed--');
         process.exit();
