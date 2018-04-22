@@ -106,7 +106,7 @@ cv2.destroyAllWindows()
 
 ## ตัวอย่างรูปการ Trainning
 <p align="center">
-    <img src="img/training pic.png" >
+    <img src="img/training pic.PNG" >
 </p>
 
 ## 🔔 Telegram bot api
