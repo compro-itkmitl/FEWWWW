@@ -1,7 +1,7 @@
 <img src="img/banner.png">
 
 # What is FEWWW
-Fewww คือ ระบบแจ้งเตือน โดยใช้ระบบ Face-Detection เข้ามาช่วยเหลือในการตรวจจับหน้าบุคคล และการเอา Chat Service มาเป็นตัแจ้งเตือนและควบคุมการทำงาน (Bot) โดยจุดประสงค์คือการแจ้งเตือนเมื่อเครื่องมือ detect ใบน้าของบุคคลให้เจ้าของบ้านรับรู้และตอบสนองได้ท่วงทันเหตุการณ์
+Fewww คือ ระบบแจ้งเตือน โดยใช้ระบบ Face-Recognition เข้ามาช่วยเหลือในการตรวจจับหน้าบุคคล และการเอา Chat Service มาเป็นตัแจ้งเตือนและควบคุมการทำงาน (Bot) โดยจุดประสงค์คือการแจ้งเตือนเมื่อเครื่องมือ detect ใบน้าของบุคคลให้เจ้าของบ้านรับรู้และตอบสนองได้ท่วงทันเหตุการณ์
 
 # Component
 สิ่งที่เราใช้มาประกอบการทำ Project Fewww ก็มีดังนี้ <br>
@@ -13,15 +13,21 @@ Fewww คือ ระบบแจ้งเตือน โดยใช้ระ
 * Javascript (node-telegram-bot-api)
 * Python
 
+## Requested Module
+* [OpenCV]()
+* [Node.js (npm)]()
+* [Node-Telegram-bot-api]()
+
+
 # How did it work?
-Fewww จะทำงานอยู่บน Raspberry-Pi โดย System ของเรานั้นจะแบ่งเป็น 2 ส่วนหลังนั้นก็คือ ส่วนของการ `Detection` และ `Notifiation` ซึงส่วนของการ `Detection` นั้นจะคอย ตรวจจับใบหน้าและจะเป็นส่วนที่จะ Trigger ให้ `Notifiation` ทำงานคือ การ Notify ผู้ใช้
+Fewww จะทำงานอยู่บน Raspberry-Pi โดย System ของเรานั้นจะแบ่งเป็น 2 ส่วนหลังนั้นก็คือ ส่วนของการ `Recognition` และ `Notifiation` ซึงส่วนของการ `Recognition` นั้นจะคอย ตรวจจับใบหน้าและจะเป็นส่วนที่จะ Trigger ให้ `Notifiation` ทำงานคือ การ Notify ผู้ใช้
 
 ## OpenCV C++
 <img src="img/banner cv.png" >
 
-### ตัวอย่าง Code ของ Face Detection
+### ตัวอย่าง Code ของ Face Recognition
 
-ในส่วนของ Detection 
+ในส่วนของ Recognition 
 ```c++
         for(size_t i=0;i<faces.size();i++){
 
@@ -73,16 +79,19 @@ setTimeout(function() {
 ```
 
 # Interface
-ในส่วนของการใช้งานนั้น การทำงาน Few จะทำงานโดยผ่านการควบคุมของ `Feww Alert bot` ซึ่งคำส่งการทำงานขึ้นให้เรียบร้อยบน Keyboard
+ในส่วนของการใช้งานนั้น การทำงาน Feww จะทำการ Notify ไปผ่านท่าง `Feww Alert bot` ซึ่งคำส่งการทำงานขึ้นให้เรียบร้อยบน Keyboard
 
 
 |command| action|
 | :-: | :-: |
-|/start|เริ่มเปิดระบบ Detection|
+|/start|เริ่มเปิดระบบ Recognition|
 |/sendpic|การส่งรูป|
 
-### รูปตัวอย่างของ Interface
+### รูปตัวอย่างของ การแจ้งเตือน
 
+<img src="img/chatex1.png" width="400px">
+<img src="img/chatex2.png" width="400px">
+<img src="img/chatex3.png" width="400px">
 
 
 # Team Member
