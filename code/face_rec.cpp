@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <stdlib.h>
 
 using namespace cv;
 using namespace cv::face;
@@ -15,6 +16,8 @@ using namespace std;
 
 int main(){
     cout << "start face rec PLEASE WAIT..." << endl;
+    
+    int check;
 	
 	//define model face recognizer
     Ptr<LBPHFaceRecognizer> model = LBPHFaceRecognizer::create();
@@ -40,6 +43,7 @@ int main(){
 		vector<Rect> faces;
 
 		vdo >> frame;
+		
 
 
 		//check vdo is emthy
@@ -70,39 +74,53 @@ int main(){
 				int predict_label = -1;
 				double confidence = 0.0;
 				model -> predict(cropimage,predict_label, confidence);
-
+				
+				if(confidence == 0.0){
+					int check = 0;
+				}
 				cout << confidence << endl;
 				if(predict_label == 1){
-					if(confidence <= 45){
+					if(confidence < 50){
 						name_user = "khing";
 					}
 					else{
 						name_user = "unknown";
+						
 					}
+					check += 1;
 				}
 				else if(predict_label == 2){
-					if(confidence <= 50){
-						name_user = "platty";
+					if(confidence < 50){
+						name_user = "mix";
 					}
 					else{
 						name_user = "unknown";
 					}
+					check += 1;
 				}
+				
 				else{
-					if(confidence <= 50){
+					if(confidence < 50){
 						name_user = "Ped";
 					}
 					else{
 						name_user = "unknown";
 					}
+					check += 1;
 				}
 				putText(frame, name_user, Point(faces[i].x, faces[i].y+faces[i].height), FONT_HERSHEY_COMPLEX_SMALL, 3.0, CV_RGB(0, 0, 0), 3.0);
-				
+			
 			}
 			
 			imshow(window, frame);
 			waitKey(1);
 			
+			if (check >= 25){
+				cout << name_user << endl;
+				imwrite("test_picture.jpg", frame);
+				system ("node notify.js");
+				check = 0;
+		}
 
 		}
 

@@ -15,7 +15,7 @@ int main(){
     //capture video with camera 1
     VideoCapture vdo(0);
     int num=0;//id and num is number of image training
-    char id[30], countt[30], path[100];
+    char id[30], path[100];
     printf("enter id");
     scanf("%s", id);
 
@@ -56,7 +56,7 @@ int main(){
 
 
             num++;
-            sprintf(path, "user/user3.%d.jpg", num);
+            sprintf(path, "user/user1.%d.jpg", num+100);
             imwrite(path, cropimage);
 
             waitKey(1);
