@@ -37,6 +37,12 @@ Fewww จะทำงานอยู่บน Raspberry-Pi โดย System ข�
 ```c++
 
 ```
+และแน่นอนการที่จะให้ตัว FEWWW นั้นสามารถ Identify Face ได้ แน่นอนเราก็ต้องทำการ Training ให้ Program สามารถเรียนรู้จากรูปใบไหน้าได้ (Training Model) 
+### ตัวอย่างรูปการ Trainning
+<p align="center">
+    <img src="img/training pic.PNG" >
+</p>
+
 ### ตัวอย่าง Code การ Training Face Recognition
 ```python
 '''create recognizer'''
@@ -86,10 +92,7 @@ cv2.destroyAllWindows()
     <img src="img/detection.jpg" >
 </p>
 
-## ตัวอย่างรูปการ Trainning
-<p align="center">
-    <img src="img/training pic.PNG" >
-</p>
+
 
 ## 🔔 Telegram bot api
 <img src="img/banner tele.png">
