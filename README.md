@@ -33,26 +33,6 @@ Fewww จะทำงานอยู่บน Raspberry-Pi โดย System ข�
 ### ตัวอย่าง Code ของ Face Recognition
 
 ```c++
-        for(size_t i=0;i<faces.size();i++){
-
-            //point begin and end of faces
-            Point f_begin(faces[i].x, faces[i].y);
-            Point f_end(faces[i].x + faces[i].width , faces[i].y + faces[i].height);
-
-            Rect crop = Rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-            Mat cropimage = gray(crop);
-
-
-            num++;
-            sprintf(path, "user/user3.%d.jpg", num);
-            imwrite(path, cropimage);
-
-            waitKey(1);
-
-            //draw rectangular
-            rectangle(frame, f_begin, f_end, Scalar(0, 255, 0), 2);
-        }
-        imshow("face", frame);
 
 ```
 ### ตัวอย่าง Code การ Training Face Recognition
@@ -113,7 +93,7 @@ cv2.destroyAllWindows()
 <img src="img/banner tele.png">
 
 ในส่วนของการ Notify User นั้นอย่างที่เราได้กล่าวไว้ในข้างต้นว่าเราใช้ตัว Telegram Bot เป็นตัวส่งให้ User รับรู้ โดยภาษาที่ใช้สั่งตัว Telegram Bot ที่เราใช้คือ JavaScript (node.js) และใช้  [node.js telegram bot api](https://github.com/yagop/node-telegram-bot-api) 
-โดยเราจะแบ่งตัว Program เป็น 2 ส่วนคือ ส่วนที่ Run ตลอดเพื่อรอรับคำส่งจาก User แและอีกส่วนนึงก็เป็นตัที่รอการโดย Trigger จาก C++ เมื่อมีการ detect เกิดขึ้น
+ซึ่งตัว Node.js นี้จะเป็นตัวที่รอการ Trigger จาก C++ เมื่อมีการ detect เกิดขึ้น เพื่อส่งให้กับผู้ใช้
 
 ### ตัวอย่าง Code ของการส่งรูปไปยัง User
 ```js
@@ -164,9 +144,17 @@ setTimeout(function() {
 
 
 # 🔗Reference
+
  [OpenCV C++](https://opencv.org/)
 
  [node.js telegram bot api](https://github.com/yagop/node-telegram-bot-api)
 
 [Telegram bot api Document](https://github.com/yagop/node-telegram-bot-api)
 
+
+___
+
+รายงานนี้เป็นส่วนหนึ่งของวิชา Computer Programming (รหัส 06016206)
+
+คณะเทคโนโลยีสารสนเทศ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
+___
