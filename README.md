@@ -102,7 +102,7 @@ const token = '<botToken>';
 const bot = new TelegramBot(token, {polling: true});
 
 setTimeout(function() {
-    bot.sendPhoto(msg.chat.id,"test_picture.jpg")
+    bot.sendPhoto(msg.chat.id,"test_picture.jpg",{caption:})
     .then(() => {
         console.log('--sending completed--');
         console.log('--sended to '+msg.chat.username+'--');
@@ -136,7 +136,7 @@ setTimeout(function() {
 | :-: | :-: | :-: |
 |พชรพล พรหมมา|รฐนนท์ จันทนะสุคนธ์|รวิชญ์ โลหะขจรพันธ์|
 |60070058 |      60070079      |      60070081      |
-|    @mix.pacharapon    |     @ khingbmc     |     @RawitSHIE     |
+|    @MixPacharapon    |     @ khingbmc     |     @RawitSHIE     |
 
 # 👨‍🏫 Instructor
 
