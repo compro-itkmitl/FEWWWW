@@ -146,7 +146,6 @@ const TelegramBot = require('node-telegram-bot-api');
 const token = '<botToken>';
 const bot = new TelegramBot(token, {polling: true});
 
-setTimeout(function() {
     bot.sendPhoto(msg.chat.id,"test_picture.jpg",{caption:})
     .then(() => {
         console.log('--sending completed--');
@@ -155,7 +154,7 @@ setTimeout(function() {
     .catch(() => {
         console.log('-- sending err --');
     });
-    }, 5000);
+
 
 ```
 
