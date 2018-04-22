@@ -154,7 +154,7 @@ setTimeout(function() {
 | :-: | :-: | :-: |
 |พชรพล พรหมมา|รฐนนท์ จันทนะสุคนธ์|รวิชญ์ โลหะขจรพันธ์|
 |60070058 |      60070079      |      60070081      |
-|    @    |     @ khingbmc     |     @RawitSHIE     |
+|    @mix.pacharapon    |     @ khingbmc     |     @RawitSHIE     |
 
 # 👨‍🏫 Instructor
 
@@ -164,7 +164,7 @@ setTimeout(function() {
 
 
 # 🔗Reference
- [OpenCV C++](https://github.com/yagop/node-telegram-bot-api)
+ [OpenCV C++](https://opencv.org/)
 
  [node.js telegram bot api](https://github.com/yagop/node-telegram-bot-api)
 
