@@ -3,6 +3,6 @@
 # navigate to home directory. then execute script
 
 cd /
-cd home/pi/Desktop/compro/FEWWWW/code
+cd home/pi/Desktop/CP/FEWWWW/code
 sudo ./app
 cd /
