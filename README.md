@@ -200,7 +200,7 @@ const bot = new TelegramBot(token, {polling: true});
 
 # 🔗Reference
 
- [OpenCV C++](https://opencv.org/)
+ [OpenCV](https://opencv.org/)
 
  [node.js telegram bot api](https://github.com/yagop/node-telegram-bot-api)
 
