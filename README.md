@@ -31,54 +31,8 @@ Fewww จะทำงานอยู่บน `Raspberry-Pi` โดย System �
 ในส่วนของการจดจำใบหน้าเป็นเรื่องง่ายสำหรับคน แต่เป็นเรื่องยากสำหรับคอมพิวเตอร์ โดยทางคอมพิวเตอร์ได้มีอัลกอริทึกมีมากมายแต่ทุกสิ่งนั้นได้มีพื้นฐานมาจาก เรขาคณิต โดยนำ จุดที่เป็นจุดแสดงถึงองค์ประกอบภายในใบหน้าและภายนอกมาสร้างเป็นสมการเวคเตอร์
 ซึ่งใน ณ จุดนี้ เราใช้ library C++ ที่ชื่อว่า OpenCV (version 2) เข้ามาช่วย
 
-#### ตัวอย่าง Code ของ Face Recognition
-```c++
-Ptr<LBPHFaceRecognizer> model = LBPHFaceRecognizer::create();
-for(int i=0;i<faces.size();i++){
-    //point begin and end of faces
-    Rect face_num = faces[i];
-    Point f_begin(faces[i].x, faces[i].y);
-    Point f_end(faces[i].x + faces[i].width , faces[i].y + faces[i].height);
 
-    Rect crop = Rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-    Mat cropimage = gray_scale(crop);
-    imshow("f", cropimage);
 
-    rectangle(frame, face_num,CV_RGB(0, 255, 0), 2);
-
-    int predict_label = -1;
-    double confidence = 0.0;
-    model -> predict(cropimage,predict_label, confidence);
-    
-    if(confidence == 0.0){
-        int check = 0;
-    }
-    cout << confidence << endl;
-    if(predict_label == 1){
-        if(confidence < 50){
-            name_user = "khing";
-        }
-        else{
-            name_user = "unknown";
-            
-        }
-        check += 1;
-    }
-```
-
-#### ตัวอย่าง code ของส่วน Prediction
-```c++
-Ptr<LBPHFaceRecognizer> model = LBPHFaceRecognizer::create();
-	//read model
-	model -> read("trainingdata.yml");
-	
-	//cascade face
-	CascadeClassifier face_cascade;
-	string classifier = "haarcascade_frontalface_alt.xml";
-	face_cascade.load(classifier);
-
-	string window = "cap_faceDetection";
-```
 และแน่นอนการที่จะให้ตัว FEWWW นั้นสามารถ Identify Face ได้ แน่นอนเราก็ต้องทำการ Training ให้ Program สามารถเรียนรู้จากรูปใบไหน้าได้ (Training Model) 
 ### ตัวอย่างรูปการ Trainning
 <p align="center">
@@ -134,7 +88,54 @@ cv2.destroyAllWindows()
     <img src="img/detection.jpg" >
 </p>
 
+#### ตัวอย่าง code ของส่วน อ่าน File .yml
+```c++
+Ptr<LBPHFaceRecognizer> model = LBPHFaceRecognizer::create();
+	//read model
+	model -> read("trainingdata.yml");
+	
+	//cascade face
+	CascadeClassifier face_cascade;
+	string classifier = "haarcascade_frontalface_alt.xml";
+	face_cascade.load(classifier);
 
+	string window = "cap_faceDetection";
+```
+
+#### ตัวอย่าง Code ของ Face Recognition
+```c++
+Ptr<LBPHFaceRecognizer> model = LBPHFaceRecognizer::create();
+for(int i=0;i<faces.size();i++){
+    //point begin and end of faces
+    Rect face_num = faces[i];
+    Point f_begin(faces[i].x, faces[i].y);
+    Point f_end(faces[i].x + faces[i].width , faces[i].y + faces[i].height);
+
+    Rect crop = Rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+    Mat cropimage = gray_scale(crop);
+    imshow("f", cropimage);
+
+    rectangle(frame, face_num,CV_RGB(0, 255, 0), 2);
+
+    int predict_label = -1;
+    double confidence = 0.0;
+    model -> predict(cropimage,predict_label, confidence);
+    
+    if(confidence == 0.0){
+        int check = 0;
+    }
+    cout << confidence << endl;
+    if(predict_label == 1){
+        if(confidence < 50){
+            name_user = "khing";
+        }
+        else{
+            name_user = "unknown";
+            
+        }
+        check += 1;
+    }
+```
 
 ## 🔔 Telegram bot api
 <img src="img/banner tele.png">
@@ -161,13 +162,9 @@ const bot = new TelegramBot(token, {polling: true});
 ```
 
 # 📲 Interface
-ในส่วนของการใช้งานนั้น การทำงาน Feww จะทำการ Notify ไปผ่านท่าง `Feww Alert bot` เพื่อเตือนให้เรารู้ว่า ให้เรารับรู้ โดยเมื่อเราเริ่มการทำงานของ ระบบแล้ว เราก็สามารถปล่อยให้ Programme นั้น Run ไปได้เลย
+ในส่วนของการใช้งานนั้น การทำงาน Feww จะทำการ Notify ไปผ่านท่าง `Feww Alert bot` เพื่อเตือนให้เรารู้ว่า ให้เรารับรู้ โดยเมื่อเราเริ่มการทำงานของ Raspberry Pi เราก็สามารถปล่อยให้ Programme นั้น Run ไปได้เลย
 
-### วิธีการของเริ่ม Program
-เริ่มแรก ทำการเข้าไปใน folder ของ Code แล้วเพียงพิมพ์ `./app` เข้าไปยัง Terminal
-```
-./app
-```
+
 
 
 ### รูปตัวอย่างของ การแจ้งเตือน
