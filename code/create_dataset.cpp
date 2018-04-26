@@ -56,7 +56,7 @@ int main(){
 
 
             num++;
-            sprintf(path, "user/user1.%d.jpg", num+100);
+            sprintf(path, "user/user1.%d.jpg", num+200);
             imwrite(path, cropimage);
 
             waitKey(1);
@@ -66,7 +66,7 @@ int main(){
         }
         imshow("face", frame);
 
-        if (num >= 100) break;
+        if (num >= 200) break;
         waitKey(1);
 
 
